@@ -1,43 +1,43 @@
-const mongoose=require("mongoose");
-const {Schema}=mongoose;
 
-const UserSchema=new Schema({
-    timestamps:true,
-    username:{
-        type:String,
-        required:true,
-        unique:true
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const UserSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-    password:{
-        type:String
+    password: {
+        type: String
     },
-    repositories:[
+    repositories: [
         {
-            default:[],
-            type:Schema.Types.ObjectId,
-            ref:"Repository"
+            type: Schema.Types.ObjectId,
+            ref: "Repository"
         }
     ],
-    followedUsers:[
+    followedUsers: [
         {
-            default:[],
-            type:Schema.Types.ObjectId,
-            ref:"User"
+            type: Schema.Types.ObjectId,
+            ref: "User"
         }
     ],
-    starRepos:[
+    starRepos: [
         {
-            default:[],
-            type:Schema.Types.ObjectId,
-            ref:"Repository"
+            type: Schema.Types.ObjectId,
+            ref: "Repository"
         }
-    ],
+    ]
+}, {
+    timestamps: true
 });
 
-const User=mongoose.model("User",UserSchema);
-module.exports=User;
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;

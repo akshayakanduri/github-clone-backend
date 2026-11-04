@@ -1,29 +1,32 @@
-const mongoose=require("mongoose");
-const {Schema}=mongoose;
 
-const IssueSchema=new Schema({
-    timestamps:true,
-    title:{
-        type:String,
-        required:true,
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const IssueSchema = new Schema({
+    title: {
+        type: String,
+        required: true
     },
-    description:{
-        type:String,
-        required:true,
+    description: {
+        type: String,
+        required: true
     },
-    status:{
-        type:String,
-        enum:["open","close"],
-        default:"open",
+    status: {
+        type: String,
+        enum: ["open", "close"],
+        default: "open"
     },
-    repository:[
+    repository: [
         {
-            type:Schema.Types.ObjectId,
-            ref:"Repository",
-            required:true
+            type: Schema.Types.ObjectId,
+            ref: "Repository",
+            required: true
         }
-    ],
+    ]
+}, {
+    timestamps: true
 });
 
-const Issue=mongoose.model("Issue",IssueSchema);
-module.exports=Issue;
+const Issue = mongoose.model("Issue", IssueSchema);
+
+module.exports = Issue;

@@ -1,12 +1,10 @@
-
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const RepositorySchema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     description: {
         type: String
@@ -17,7 +15,8 @@ const RepositorySchema = new Schema({
         }
     ],
     visibility: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     owner: {
         type: Schema.Types.ObjectId,
@@ -33,6 +32,11 @@ const RepositorySchema = new Schema({
 }, {
     timestamps: true
 });
+
+RepositorySchema.index(
+    { name: 1, owner: 1 },
+    { unique: true }
+);
 
 const Repository = mongoose.model("Repository", RepositorySchema);
 

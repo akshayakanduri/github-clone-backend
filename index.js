@@ -80,8 +80,19 @@ async function startServer() {
         process.exit(1);
     }
 
+    // app.use(cors({
+    //     origin: [
+    //         "https://main.d19kioom3vkpfo.amplifyapp.com"
+    //     ],
+    //     credentials: true
+    // }));
+    const allowedOrigins = [
+        frontendURL,
+        "http://localhost:5173"
+    ];
+
     app.use(cors({
-        origin: frontendURL
+        origin: allowedOrigins
     }));
 
     app.use(express.json());
@@ -90,9 +101,18 @@ async function startServer() {
 
     const httpServer = http.createServer(app);
 
+    // const io = new Server(httpServer, {
+    //     cors: {
+    //         origin: [
+    //             "https://main.d19kioom3vkpfo.amplifyapp.com"
+    //         ],
+    //         methods: ["GET", "POST"],
+    //         credentials: true
+    //     }
+    // });
     const io = new Server(httpServer, {
         cors: {
-            origin: frontendURL,
+            origin: allowedOrigins,
             methods: ["GET", "POST"]
         }
     });

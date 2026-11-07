@@ -113,7 +113,8 @@ async function fetchRepositoryById(req, res) {
 
         if (
             !repository.visibility &&
-            repository.owner._id.toString() !== req.user.id
+            (!repository.owner ||
+            repository.owner._id.toString() !== req.user.id)
         ) {
             return res.status(403).json({
                 error: "You cannot access this private repository"

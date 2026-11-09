@@ -1,7 +1,7 @@
 
 const fs = require("fs").promises;
 const path = require("path");
-const { v4: uuidv4 } = require("uuid");
+const { randomUUID } = require("crypto");
 
 async function commitRepo(message) {
     const repoPath = path.resolve(process.cwd(), ".myGit");
@@ -21,7 +21,7 @@ async function commitRepo(message) {
             throw new Error("No files to commit. Add files first.");
         }
 
-        const commitID = uuidv4();
+        const commitID = randomUUID();
         const commitDir = path.join(commitPath, commitID);
 
         await fs.mkdir(commitDir, { recursive: true });
